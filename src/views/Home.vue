@@ -33,9 +33,11 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
-import axios from 'axios';
-const getImageUrl = (user)=>{
+import {ref,getCurrentInstance,onMounted} from 'vue'
+
+//解构的方式
+const {proxy} = getCurrentInstance()
+const getImageUrl = (user)=>{ 
   return new URL(`../assets/images/${user}.png`,import.meta.url).href
 }
 
@@ -59,23 +61,17 @@ const tableLabel = ref({
   todayBuy: "今日购买",                            
   monthBuy: "本月购买",
   totalBuy: "总购买",
-})                                 
-axios({
-  url: '/api/home/getTableData',
-  method: 'get'
-}).then(res => {
-  console.log(res.data); // 这里会输出你的模拟数据
-  if(res.data.status === 200){
-    console.log(res.data.data.tableData)
-    tableData.value = res.data.data.tableData
-  }              
-}).catch(error => {
-  console.error('请求失败:', error);
-});
+})   
+                              
+const getTableData = async () => {
+  const data = await proxy.$api.getTableData()
+  tableData.value = data.tableData
+}
 
-
+onMounted(()=>{
+  getTableData()
+})
 </script>
-
 <style scoped lang="less">
 .home{
   height: 100%;

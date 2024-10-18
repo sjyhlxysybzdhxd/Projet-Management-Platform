@@ -1,7 +1,7 @@
 export default {
   getTableData: ()=>{
     return {
-      status:200,
+      code:200,
       data:{
         tableData:[
           {
