@@ -42,18 +42,6 @@ const getImageUrl = (user)=>{
 }
 
 const tableData = ref([
-  {
-    name: "java",
-    todayBuy: 100,
-    monthBuy: 200,
-    totalBuy: 300,
-  },
-  {
-    name: "python",
-    todayBuy: 100,
-    monthBuy: 200,
-    totalBuy: 300,
-  },
 ])
 
 const tableLabel = ref({

@@ -23,7 +23,8 @@ export default {
             "totalBuy": 2500
           }
         ]
-      }
+      },
+      "msg": "Success"
     }
   }
 }
