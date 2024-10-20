@@ -41,9 +41,8 @@ const getImageUrl = (user)=>{
   return new URL(`../assets/images/${user}.png`,import.meta.url).href
 }
 
-const tableData = ref([
-])
-
+const tableData = ref([])
+const countdata = ref([])
 const tableLabel = ref({
   name: "课程",
   todayBuy: "今日购买",                            
@@ -53,11 +52,31 @@ const tableLabel = ref({
                               
 const getTableData = async () => {
   const data = await proxy.$api.getTableData()
+  // console.log(data);
   tableData.value = data.tableData
 }
 
+const getCountData = async ()=> {
+  const data = await proxy.$api.getCountData()
+  console.log(data);
+}
+
+import axios from "axios";
+
+// 创建请求函数
+const testMockApi = async () => {
+  try {
+    const response = await axios.get("/api/test"); // 发送 GET 请求
+    console.log(response.data); // 输出响应数据
+  } catch (error) {
+    console.error("请求错误:", error); // 输出请求错误
+  }
+};
+
 onMounted(()=>{
   getTableData()
+  getCountData()
+  testMockApi();
 })
 </script>
 <style scoped lang="less">

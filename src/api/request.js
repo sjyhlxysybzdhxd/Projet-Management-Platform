@@ -21,9 +21,11 @@ service.interceptors.request.use(
 // 添加响应拦截器
 service.interceptors.response.use(
   (res) => {
-    console.log(res);
+    // console.log(`请求地址: ${res.config.baseURL}${res.config.url}`);
+    // console.log('请求方法:', res.config.method);
+    // console.log('响应数据:', res.data); // 打印响应数据
+    
     const { code, data, msg } = res.data;
-    console.log(data,code);
     if (code == 200) {
       return data; // 返回数据部分
     } else {
@@ -44,18 +46,18 @@ function request(options) {
 
   // 对 mock 的开关做处理
   let isMock = config.mock;
-
   if (typeof options.mock !== "undefined") {
     isMock = options.mock;
   }
 
+  
   // 针对环境做出处理
   if (config.env === 'prod') {
     // 不能使用 mock
-    
     service.defaults.baseURL = config.baseApi;
   } else {
     service.defaults.baseURL = isMock ? config.mockApi : config.baseApi;
+
   }
 
   return service(options); // 发起请求
